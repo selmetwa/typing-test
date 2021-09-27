@@ -1,0 +1,19 @@
+.wrapper {
+    border: 1px solid red;
+    width: 60%;
+    margin: 10vh auto;
+}
+
+.wordsWrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.word {
+    width: min-content;
+    white-space: nowrap;
+    margin: 5px;
+    font-size: 22px;
+
+}
