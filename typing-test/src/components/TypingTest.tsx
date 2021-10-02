@@ -21,14 +21,9 @@ const Test = () => {
   const [wordCount, setWordCount] = useState(10);
   const [accuracy, setAccuracy] = useState(null);
   const [startTime, setStartTime] = useState(null);
+  const [wpm, setWpm] = useState(null);
+
   const inputEl = useRef(null);
-
-
-  // useEffect(() => {
-  //   if (started) {
-      
-  //   }
-  // }, [started]);
 
   useEffect(() => {
     const initialWords = generateWords(wordCount);
@@ -49,6 +44,8 @@ const Test = () => {
     setWrongWords([])
     setRightWords([])
     setActiveWordIndex(0);
+    setStartTime(null);
+    setWpm(null);
     setAccuracy(null)
     handleGenerateWords(wordCount)
   }
@@ -68,8 +65,9 @@ const Test = () => {
   const calculate = (startTime:number, endTime:number) => {
     let acc = (rightWords.length / words.length) * 100;
     setAccuracy(acc);
-    const durationInMinutes = (currentTime() - startTime) / 60000.0;
+    const durationInMinutes = (endTime - startTime) / 60000.0;
     const wpm = ((words.length + 1) / durationInMinutes).toFixed(2);
+    setWpm(wpm);
     console.log('wpm: ', wpm)
   }
 
@@ -129,7 +127,7 @@ const Test = () => {
 
   return (
     <section className="wrapper">
-      <Buttons {...{ handleGenerateWords, accuracy }} />
+      <Buttons {...{ handleGenerateWords, accuracy, wpm }} />
       <div className="wordsWrapper">
         {words.map((word: string, index: number) => {
           return (
