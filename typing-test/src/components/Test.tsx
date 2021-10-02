@@ -5,13 +5,13 @@ import './Test.css';
 
 const Test = () => {
   const [words, setWords] = useState([])
-  const [wrongWords, setWrongWords] = useState([]);
-  const [rightWords, setRightWords] = useState([]);
+  const [wrongWords, setWrongWords] = useState<string[]>([]);
+  const [rightWords, setRightWords] = useState<string[]>([])
   const [activeWordIndex, setActiveWordIndex] = useState(0);
   const [lastKey, setLastKey] = useState(null);
 
   const inputEl = useRef(null);
-
+  
   const handleGenerateWords = (count: number) => {
     const initialWords = generateWords(count);
     setWords(initialWords)
@@ -22,8 +22,30 @@ const Test = () => {
   }, []);
 
 
-  const resetTest = () => {
-    inputEl.current.value = '';
+  const stylePreviousWord = (previousWord:Element, color:string) => {
+    if (previousWord instanceof HTMLElement) {
+      previousWord.style.color = color;
+    } else {
+      throw new Error(`element not in document`)
+    }
+  }
+
+  const addToRightWords = (word:string, previousWord:Element) => {
+    let newRightWords = [...rightWords];
+    newRightWords.push(word)
+    setRightWords(newRightWords);
+    stylePreviousWord(previousWord, 'green')
+  }
+
+  const addToWrongWords = (word:string, previousWord:Element) => {
+    let newWrongWords = [...wrongWords];
+    newWrongWords.push(word)
+    setWrongWords(newWrongWords);
+    stylePreviousWord(previousWord, 'red')
+  }
+
+  const resetInputField = () => {
+    inputEl.current!.value = '';
   }
 
   useKeyPress((key: any) => {
@@ -32,37 +54,26 @@ const Test = () => {
 
   const handleKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;
-    if (words[activeWordIndex].indexOf(input.replace(/ /g, '')) > -1) {
-      inputEl.current.style.backgroundColor = 'white';
+    const activeWord = words[activeWordIndex];
+    const previousWord = document.querySelector(`.word-${activeWordIndex}`);
+    const currentInputIsCorrect = activeWord.indexOf(input.replace(/ /g, '')) > -1;
+    if (currentInputIsCorrect) {
+      inputEl.current!.style.backgroundColor = 'white';
     } else {
-      inputEl.current.style.backgroundColor = 'red';
+      inputEl.current!.style.backgroundColor = 'red';
     }
     if (input.replace(/ /g, '').length > 0 && input.charAt(input.length - 1) === ' ') {
-      resetTest()
-      console.log('words[activeWordIndex]: ', words[activeWordIndex])
-      if (input.replace(/ /g, '') === words[activeWordIndex]) {
-        let prev = document.querySelector(`.word-${activeWordIndex}`);
-        const word = words[activeWordIndex];
-        let newRightWords = [...rightWords];
-        newRightWords.push(word)
-        setRightWords(newRightWords);
-        prev.style.color = 'green';
-      } else {
-        let prev = document.querySelector(`.word-${activeWordIndex}`);
-        const word = words[activeWordIndex];
-        let newWrongWords = [...wrongWords];
-        newWrongWords.push(word)
-        setWrongWords(newWrongWords);
-        prev.style.color = 'red';
-      }
+      resetInputField();
+      const inputMatchesWord = input.replace(/ /g, '') === words[activeWordIndex];
+
+      inputMatchesWord ? addToRightWords(activeWord, previousWord) : addToWrongWords(activeWord, previousWord);
+
       const currentIndex = activeWordIndex;
       let test = document.querySelector(`.word-${currentIndex + 1}`)
       test && test.style ? test.style.color = 'orange' : null;
       setActiveWordIndex(currentIndex + 1);
-      console.log('currentIndex: ', currentIndex)
-      console.log('words.length: ', words.length)
       if (words[activeWordIndex] === words[words.length-1]) {
-        resetTest()
+        resetInputField()
       }
     }
   }
