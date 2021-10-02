@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { generateWords } from "../util.js";
 import Buttons from "./Buttons.tsx";
 import './TypingTest.css';
@@ -6,8 +6,8 @@ import './TypingTest.css';
 /**
  * TODO
  * [x] move buttons to separate component
- * [] calculate accuracy
- * [] rename variables and files, remove unused things
+ * [x] rename variables and files, remove unused things
+ * [x] calculate accuracy
  * [] make it look better
  */
 
@@ -16,19 +16,33 @@ const Test = () => {
   const [wrongWords, setWrongWords] = useState<string[]>([]);
   const [rightWords, setRightWords] = useState<string[]>([])
   const [activeWordIndex, setActiveWordIndex] = useState(0);
-  const [lastKey, setLastKey] = useState(null);
 
   const inputEl = useRef(null);
 
   const handleGenerateWords = (count: number) => {
     const initialWords = generateWords(count);
-    setWords(initialWords)
+    setWords(initialWords);
+
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     handleGenerateWords(10);
   }, []);
 
+
+  useEffect(() => {
+    if (rightWords.length + wrongWords.length === words.length) {
+      calculate();
+      resetInputField()
+    }
+  }, [rightWords, wrongWords]);
+
+  const calculate = () => {
+    let acc = (rightWords.length / words.length) * 100;
+    console.log('acc: ', acc);
+    console.log('rightWords: ', rightWords);
+    console.log('wrongWords: ', wrongWords);
+  }
 
   const stylePreviousWord = (previousWord: Element, color: string) => {
     if (previousWord instanceof HTMLElement) {
@@ -42,18 +56,20 @@ const Test = () => {
     let newRightWords = [...rightWords];
     newRightWords.push(word)
     setRightWords(newRightWords);
-    stylePreviousWord(previousWord, '#6FC37D')
+    stylePreviousWord(previousWord, '#6FC37D');
   }
 
   const addToWrongWords = (word: string, previousWord: Element) => {
     let newWrongWords = [...wrongWords];
     newWrongWords.push(word)
     setWrongWords(newWrongWords);
-    stylePreviousWord(previousWord, '#E85F5C')
+    console.log('newWrongWords: ', newWrongWords);
+    stylePreviousWord(previousWord, '#E85F5C');
   }
 
   const resetInputField = () => {
     inputEl.current!.value = '';
+    inputEl.current!.style.backgroundColor = '#FAFAFA';
   }
 
   const handleKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,9 +92,6 @@ const Test = () => {
       let test = document.querySelector(`.word-${currentIndex + 1}`)
       test && test.style ? test.style.color = '#258EA6' : null;
       setActiveWordIndex(currentIndex + 1);
-      if (words[activeWordIndex] === words[words.length - 1]) {
-        resetInputField()
-      }
     }
   }
 
