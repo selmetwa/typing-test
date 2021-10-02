@@ -1,20 +1,22 @@
 * {
-  --color-green: #6FC37D;
-  --color-red: #E85F5C;
-  --color-pink: #DC9596;
-  --color-black: #1A1B25;
-  --color-purple: #7D5BA6;
-  --color-blue: #258EA6;
+    --color-green: #6FC37D;
+    --color-red: #E85F5C;
+    --color-pink: #DC9596;
+    --color-black: #1A1B25;
+    --color-purple: #7D5BA6;
+    --color-blue: #258EA6;
+    --color-white: #ffffff;
 }
 
 .wrapper {
     border: 1px solid red;
-    width: 60%;
+    width: 50%;
     margin: 10vh auto;
 }
 
 .wordsWrapper {
     display: flex;
+    margin-top: 16px;
     flex-direction: row;
     flex-wrap: wrap;
 }
@@ -29,9 +31,9 @@
 
 input {
     width: 95%;
-    padding: 1em 0;
+    padding: .25em 0;
     margin: 3vh auto;
-    border-radius: 5px;
+    border-radius: 3px;
     font-size: 22px;
     font-weight: 900;
 }

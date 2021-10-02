@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import Test from './components/Test';
+import Test from './components/TypingTest';
 
 function App() {
 
