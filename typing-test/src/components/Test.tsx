@@ -34,14 +34,14 @@ const Test = () => {
     let newRightWords = [...rightWords];
     newRightWords.push(word)
     setRightWords(newRightWords);
-    stylePreviousWord(previousWord, 'green')
+    stylePreviousWord(previousWord, '#6FC37D')
   }
 
   const addToWrongWords = (word:string, previousWord:Element) => {
     let newWrongWords = [...wrongWords];
     newWrongWords.push(word)
     setWrongWords(newWrongWords);
-    stylePreviousWord(previousWord, 'red')
+    stylePreviousWord(previousWord, '#E85F5C')
   }
 
   const resetInputField = () => {
@@ -58,9 +58,9 @@ const Test = () => {
     const previousWord = document.querySelector(`.word-${activeWordIndex}`);
     const currentInputIsCorrect = activeWord.indexOf(input.replace(/ /g, '')) > -1;
     if (currentInputIsCorrect) {
-      inputEl.current!.style.backgroundColor = 'white';
+      inputEl.current!.style.backgroundColor = '#FAFAFA';
     } else {
-      inputEl.current!.style.backgroundColor = 'red';
+      inputEl.current!.style.backgroundColor = '#E85F5C';
     }
     if (input.replace(/ /g, '').length > 0 && input.charAt(input.length - 1) === ' ') {
       resetInputField();
@@ -70,7 +70,7 @@ const Test = () => {
 
       const currentIndex = activeWordIndex;
       let test = document.querySelector(`.word-${currentIndex + 1}`)
-      test && test.style ? test.style.color = 'orange' : null;
+      test && test.style ? test.style.color = '#258EA6' : null;
       setActiveWordIndex(currentIndex + 1);
       if (words[activeWordIndex] === words[words.length-1]) {
         resetInputField()
@@ -93,7 +93,7 @@ const Test = () => {
           )
         })}
       </div>
-      <section style={{
+      {/* <section style={{
         display: 'flex',
         flexDirection: 'row'
       }}>
@@ -117,7 +117,7 @@ const Test = () => {
             })
           }
         </div>
-      </section>
+      </section> */}
       <input onChange={e => handleKeyChange(e)} ref={inputEl} />
     </section>
   )
