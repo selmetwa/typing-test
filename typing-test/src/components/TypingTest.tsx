@@ -16,13 +16,18 @@ const Test = () => {
   const [wrongWords, setWrongWords] = useState<string[]>([]);
   const [rightWords, setRightWords] = useState<string[]>([])
   const [activeWordIndex, setActiveWordIndex] = useState(0);
+  const [testIsDone, setTestIsDone] = useState(false);
+  const [wordCount, setWordCount] = useState(10);
 
   const inputEl = useRef(null);
 
-  const handleGenerateWords = (count: number) => {
-    const initialWords = generateWords(count);
+  useEffect(() => {
+    const initialWords = generateWords(wordCount);
     setWords(initialWords);
+  }, [wordCount])
 
+  const handleGenerateWords = (count: number) => {
+    setWordCount(count)
   }
 
   useLayoutEffect(() => {
@@ -30,18 +35,28 @@ const Test = () => {
   }, []);
 
 
+  const resetTest = () => {
+    setTestIsDone(false);
+    setWrongWords([])
+    setRightWords([])
+    setActiveWordIndex(0);
+    handleGenerateWords(wordCount)
+  }
+
   useEffect(() => {
-    if (rightWords.length + wrongWords.length === words.length) {
+    if (rightWords.length + wrongWords.length === words.length && words.length >= 10) {
       calculate();
       resetInputField()
+      setTestIsDone(true);
+      Array.from(document.querySelectorAll('.word')).forEach((word) => {
+        word.style.color = 'black';
+      })
     }
   }, [rightWords, wrongWords]);
 
   const calculate = () => {
     let acc = (rightWords.length / words.length) * 100;
     console.log('acc: ', acc);
-    console.log('rightWords: ', rightWords);
-    console.log('wrongWords: ', wrongWords);
   }
 
   const stylePreviousWord = (previousWord: Element, color: string) => {
@@ -63,7 +78,6 @@ const Test = () => {
     let newWrongWords = [...wrongWords];
     newWrongWords.push(word)
     setWrongWords(newWrongWords);
-    console.log('newWrongWords: ', newWrongWords);
     stylePreviousWord(previousWord, '#E85F5C');
   }
 
@@ -105,7 +119,10 @@ const Test = () => {
           )
         })}
       </div>
-      <input onChange={e => handleKeyChange(e)} ref={inputEl} />
+      <input onChange={e => handleKeyChange(e)} ref={inputEl} disabled={testIsDone} />
+      {testIsDone && (
+        <button onClick={() => resetTest()}>redo</button>
+      )}
     </section>
   )
 }
