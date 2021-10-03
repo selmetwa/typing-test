@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { generateWords, currentTime } from "../util.js";
+import Header from "./Header";
 import Buttons from "./Buttons";
 import Input from "./Input";
 import './TypingTest.css';
@@ -13,7 +14,7 @@ const Test = () => {
   const [wordCount, setWordCount] = useState(10);
   const [accuracy, setAccuracy] = useState<number | null>(null);
   const [startTime, setStartTime] = useState<number | null>(null);
-  const [wpm, setWpm] = useState<string | null>(null);
+  const [wpm, setWpm] = useState<number | null>(null);
 
   const inputEl = document.querySelector<HTMLInputElement>('input');
   useEffect(() => {
@@ -58,7 +59,7 @@ const Test = () => {
     let acc = (rightWords.length / words.length) * 100;
     setAccuracy(acc);
     const durationInMinutes = (endTime - startTime!) / 60000.0;
-    const wpm = ((words.length + 1) / durationInMinutes).toFixed(2);
+    const wpm = Number(((words.length + 1) / durationInMinutes).toFixed(2));
     setWpm(wpm);
     console.log('wpm: ', wpm)
   }
@@ -119,16 +120,10 @@ const Test = () => {
   return (
     <section className="page-wrapper">
       <div className="test-wrapper">
-        {words[activeWordIndex] ? (
-          <h1>{words[activeWordIndex]}</h1>
-        )
-        : (
-          <div className="wpmAndAcc">
-            <h3><span>wpm</span> {wpm}</h3>
-            <h3><span>accuracy</span> {accuracy}%</h3>
-          </div>
-        )
-      }
+        <Header 
+          activeWord={words[activeWordIndex]} 
+          {...{wpm, accuracy}}
+        />
         <section className="wrapper">
           <Buttons {...{ handleGenerateWords, accuracy, wpm }} />
           <div className="wordsWrapper">
