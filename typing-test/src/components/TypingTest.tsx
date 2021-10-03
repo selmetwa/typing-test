@@ -40,7 +40,11 @@ const Test = () => {
     setStartTime(null);
     setWpm(null);
     setAccuracy(null)
-    handleGenerateWords(wordCount)
+    handleGenerateWords(wordCount);
+    let firstWord = document.querySelector<HTMLElement>('.word-0');
+    if (firstWord) {
+      firstWord!.style.color = '#7D5BA6';
+    }
   }
 
   useEffect(() => {
@@ -112,7 +116,7 @@ const Test = () => {
 
       const currentIndex = activeWordIndex;
       const nextWord = document.querySelector<HTMLElement>(`.word-${currentIndex + 1}`);
-      nextWord && nextWord.style ? nextWord.style.color = '#2274A5' : null;
+      nextWord && nextWord.style ? nextWord.style.color = '#7D5BA6' : null;
       setActiveWordIndex(currentIndex + 1);
     }
   }

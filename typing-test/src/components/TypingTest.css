@@ -64,6 +64,10 @@
     color: var(--color-black)
 }
 
+.word-0 {
+    color: var(--color-purple);
+}
+
 .inputWrapper {
     display: flex;
     flex-direction: row;
