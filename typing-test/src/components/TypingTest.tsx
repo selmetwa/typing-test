@@ -3,15 +3,6 @@ import { generateWords, currentTime } from "../util.js";
 import Buttons from "./Buttons.tsx";
 import './TypingTest.css';
 
-/**
- * TODO
- * [x] move buttons to separate component
- * [x] rename variables and files, remove unused things
- * [x] calculate accuracy
- * [x] calculate WPM
- * [x] make it look better
- */
-
 const Test = () => {
   const [words, setWords] = useState([])
   const [wrongWords, setWrongWords] = useState<string[]>([]);
