@@ -1,3 +1,4 @@
+import './Input.css';
 
 interface Props {
   testIsDone: boolean,
