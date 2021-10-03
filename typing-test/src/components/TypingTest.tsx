@@ -50,7 +50,7 @@ const Test = () => {
       resetInputField()
       setTestIsDone(true);
       Array.from(document.querySelectorAll<HTMLElement>('.word')).forEach((word) => {
-        word.style.color = 'black';
+        word.style.color = '#1A1B25';
       })
     }
   }, [rightWords, wrongWords]);
@@ -112,7 +112,7 @@ const Test = () => {
 
       const currentIndex = activeWordIndex;
       const nextWord = document.querySelector<HTMLElement>(`.word-${currentIndex + 1}`);
-      nextWord && nextWord.style ? nextWord.style.color = '#258EA6' : null;
+      nextWord && nextWord.style ? nextWord.style.color = '#2274A5' : null;
       setActiveWordIndex(currentIndex + 1);
     }
   }
