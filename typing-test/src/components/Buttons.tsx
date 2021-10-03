@@ -1,7 +1,7 @@
 import './Buttons.css';
 import { useState } from 'react';
 
-const Buttons = ({ handleGenerateWords, accuracy, wpm }) => {
+const Buttons = ({ handleGenerateWords }) => {
   const [activeButtonIndex, setActiveButtonIndex] = useState(0);
 
   return (
@@ -12,10 +12,6 @@ const Buttons = ({ handleGenerateWords, accuracy, wpm }) => {
       <p onClick={() => handleGenerateWords(25)} id="2">25</p>
       <p>/</p>
       <p onClick={() => handleGenerateWords(50)} id="2">50</p>
-      </div>
-      <div className="resultsWrapper">
-        {accuracy && (<p>Accuracy: {accuracy}%</p>)}
-        {accuracy && (<p>WPM: {wpm}</p>)}
       </div>
     </div>
   )

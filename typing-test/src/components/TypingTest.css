@@ -39,7 +39,8 @@ h1 {
     font-family: 'Avenir';
     margin: 0;
     font-size: 5vw;
-    color: #5D6083;
+    font-weight: 900;
+    color: #333748;
     /* opacity: .5; */
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -50,9 +51,9 @@ h1 {
 }
 
 .wpmAndAcc h3 span {
-    font-size: 2vw;
+    font-size: 1.5vw;
     font-weight: 400;
-    opacity: .7;
+    opacity: .5;
 }
 
 .page-wrapper {
