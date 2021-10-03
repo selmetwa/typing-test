@@ -4,7 +4,7 @@ import Buttons from "./Buttons.tsx";
 import './TypingTest.css';
 
 const Test = () => {
-  const [words, setWords] = useState([])
+  const [words, setWords] = useState<string[]>([])
   const [wrongWords, setWrongWords] = useState<string[]>([]);
   const [rightWords, setRightWords] = useState<string[]>([])
   const [activeWordIndex, setActiveWordIndex] = useState(0);
@@ -94,7 +94,6 @@ const Test = () => {
     if (!startTime) {
       setStartTime(currentTime())
     }
-    console.log('e.target.value: ', e.target.value)
     const input = e.target.value;
     const activeWord = words[activeWordIndex];
     const previousWord = document.querySelector(`.word-${activeWordIndex}`);
@@ -111,7 +110,7 @@ const Test = () => {
       inputMatchesWord ? addToRightWords(activeWord, previousWord) : addToWrongWords(activeWord, previousWord);
 
       const currentIndex = activeWordIndex;
-      let nextWord = document.querySelector<HTMLElement>(`.word-${currentIndex + 1}`);
+      const nextWord = document.querySelector<HTMLElement>(`.word-${currentIndex + 1}`);
       nextWord && nextWord.style ? nextWord.style.color = '#258EA6' : null;
       setActiveWordIndex(currentIndex + 1);
     }
@@ -125,7 +124,7 @@ const Test = () => {
         )
         : (
           <div className="wpmAndAcc">
-            <h3><span>words per minute</span> {wpm}</h3>
+            <h3><span>wpm</span> {wpm}</h3>
             <h3><span>accuracy</span> {accuracy}%</h3>
           </div>
         )
