@@ -124,9 +124,9 @@ const Test = () => {
           <h1>{words[activeWordIndex]}</h1>
         )
         : (
-          <div>
-            <h1>wpm {wpm}</h1>
-            <h1>acc {accuracy}</h1>
+          <div className="wpmAndAcc">
+            <h3><span>words per minite</span> {wpm}</h3>
+            <h3><span>accuracy</span> {accuracy}%</h3>
           </div>
         )
       }
