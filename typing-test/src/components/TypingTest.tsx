@@ -10,11 +10,11 @@ const Test = () => {
   const [activeWordIndex, setActiveWordIndex] = useState(0);
   const [testIsDone, setTestIsDone] = useState(false);
   const [wordCount, setWordCount] = useState(10);
-  const [accuracy, setAccuracy] = useState(null);
-  const [startTime, setStartTime] = useState(null);
-  const [wpm, setWpm] = useState(null);
+  const [accuracy, setAccuracy] = useState<number | null>(null);
+  const [startTime, setStartTime] = useState<number | null>(null);
+  const [wpm, setWpm] = useState<string | null>(null);
 
-  const inputEl = useRef(null);
+  const inputEl = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const initialWords = generateWords(wordCount);
@@ -54,16 +54,16 @@ const Test = () => {
     }
   }, [rightWords, wrongWords]);
 
-  const calculate = (startTime: number, endTime: number) => {
+  const calculate = (startTime: number | null, endTime: number) => {
     let acc = (rightWords.length / words.length) * 100;
     setAccuracy(acc);
-    const durationInMinutes = (endTime - startTime) / 60000.0;
+    const durationInMinutes = (endTime - startTime!) / 60000.0;
     const wpm = ((words.length + 1) / durationInMinutes).toFixed(2);
     setWpm(wpm);
     console.log('wpm: ', wpm)
   }
 
-  const stylePreviousWord = (previousWord: Element, color: string) => {
+  const stylePreviousWord = (previousWord: HTMLElement | null, color: string) => {
     if (previousWord instanceof HTMLElement) {
       previousWord.style.color = color;
     } else {
@@ -71,14 +71,14 @@ const Test = () => {
     }
   }
 
-  const addToRightWords = (word: string, previousWord: Element) => {
+  const addToRightWords = (word: string, previousWord: HTMLElement | null) => {
     let newRightWords = [...rightWords];
     newRightWords.push(word)
     setRightWords(newRightWords);
     stylePreviousWord(previousWord, '#6FC37D');
   }
 
-  const addToWrongWords = (word: string, previousWord: Element) => {
+  const addToWrongWords = (word: string, previousWord: HTMLElement | null) => {
     let newWrongWords = [...wrongWords];
     newWrongWords.push(word)
     setWrongWords(newWrongWords);
@@ -141,9 +141,9 @@ const Test = () => {
           </div>
           <div className="inputWrapper">
           <input onChange={e => handleKeyChange(e)} ref={inputEl} disabled={testIsDone} />
-          {testIsDone && (
-            <button onClick={() => resetTest()}>redo</button>
-          )}
+            {testIsDone && (
+              <button onClick={() => resetTest()}>redo</button>
+            )}
           </div>
         </section>
       </div>
