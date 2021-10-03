@@ -20,6 +20,11 @@
     cursor: pointer;
 }
 
+.active-button {
+    color: var(--color-blue);
+    font-weight: 600;
+}
+
 .resultsWrapper {
     margin-left: auto;
     white-space: nowrap;
