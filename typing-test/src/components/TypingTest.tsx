@@ -62,7 +62,7 @@ const Test = () => {
     }
   }, [rightWords, wrongWords]);
 
-  const calculate = (startTime:number, endTime:number) => {
+  const calculate = (startTime: number, endTime: number) => {
     let acc = (rightWords.length / words.length) * 100;
     setAccuracy(acc);
     const durationInMinutes = (endTime - startTime) / 60000.0;
@@ -110,7 +110,7 @@ const Test = () => {
     if (currentInputIsCorrect) {
       inputEl.current!.style.backgroundColor = '#FAFAFA';
     } else {
-      inputEl.current!.style.backgroundColor = '#E85F5C';
+      inputEl.current!.style.backgroundColor = '#DC9596';
     }
     if (input.replace(/ /g, '').length > 0 && input.charAt(input.length - 1) === ' ') {
       resetInputField();
@@ -126,19 +126,26 @@ const Test = () => {
   }
 
   return (
-    <section className="wrapper">
-      <Buttons {...{ handleGenerateWords, accuracy, wpm }} />
-      <div className="wordsWrapper">
-        {words.map((word: string, index: number) => {
-          return (
-            <p key={index} className={`word word-${index}`}>{word}</p>
-          )
-        })}
+    <section className="real-wrapper">
+      <div className="box">
+        {words[activeWordIndex] && (
+          <h1>{words[activeWordIndex]}</h1>
+        )}
+        <section className="wrapper">
+          <Buttons {...{ handleGenerateWords, accuracy, wpm }} />
+          <div className="wordsWrapper">
+            {words.map((word: string, index: number) => {
+              return (
+                <p key={index} className={`word word-${index}`}>{word}</p>
+              )
+            })}
+          </div>
+          <input onChange={e => handleKeyChange(e)} ref={inputEl} disabled={testIsDone} />
+          {testIsDone && (
+            <button onClick={() => resetTest()}>redo</button>
+          )}
+        </section>
       </div>
-      <input onChange={e => handleKeyChange(e)} ref={inputEl} disabled={testIsDone} />
-      {testIsDone && (
-        <button onClick={() => resetTest()}>redo</button>
-      )}
     </section>
   )
 }
