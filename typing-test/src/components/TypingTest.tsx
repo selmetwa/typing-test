@@ -94,7 +94,7 @@ const Test = () => {
     if (!startTime) {
       setStartTime(currentTime())
     }
-
+    console.log('e.target.value: ', e.target.value)
     const input = e.target.value;
     const activeWord = words[activeWordIndex];
     const previousWord = document.querySelector(`.word-${activeWordIndex}`);
@@ -118,11 +118,18 @@ const Test = () => {
   }
 
   return (
-    <section className="real-wrapper">
-      <div className="box">
-        {words[activeWordIndex] && (
+    <section className="page-wrapper">
+      <div className="test-wrapper">
+        {words[activeWordIndex] ? (
           <h1>{words[activeWordIndex]}</h1>
-        )}
+        )
+        : (
+          <div>
+            <h1>wpm {wpm}</h1>
+            <h1>acc {accuracy}</h1>
+          </div>
+        )
+      }
         <section className="wrapper">
           <Buttons {...{ handleGenerateWords, accuracy, wpm }} />
           <div className="wordsWrapper">
