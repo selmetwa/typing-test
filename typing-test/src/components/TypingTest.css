@@ -69,6 +69,7 @@ h1 {
 .test-wrapper {
     width: 75%;
     height: 70%;
+    text-align: center;
     display: flex;
     flex-direction: column;
 }
