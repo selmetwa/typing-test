@@ -9,7 +9,6 @@
 }
 
 h1 {
-    /* font-size: calc(25vw + (26 - 14) * ((100vw - 300px) / (1600 - 300))); */
     font-size: 20vw;
     opacity: .6;
     color: #f5f5f5;
