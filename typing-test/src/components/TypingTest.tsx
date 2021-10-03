@@ -31,6 +31,7 @@ const Test = () => {
   }, [wordCount])
 
   const handleGenerateWords = (count: number) => {
+    setActiveWordIndex(0);
     setWordCount(count)
   }
 
@@ -140,10 +141,12 @@ const Test = () => {
               )
             })}
           </div>
+          <div className="inputWrapper">
           <input onChange={e => handleKeyChange(e)} ref={inputEl} disabled={testIsDone} />
           {testIsDone && (
             <button onClick={() => resetTest()}>redo</button>
           )}
+          </div>
         </section>
       </div>
     </section>
