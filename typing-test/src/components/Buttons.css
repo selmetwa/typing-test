@@ -2,7 +2,6 @@
 .topSection {
     display: flex;
     flex-direction: row;
-    /* border: 1px solid red; */
 }
 
 .buttonsWrapper {
@@ -10,7 +9,6 @@
     flex-direction: row;
     width: min-content;
     gap: 8px;
-    /* border: 1px solid red; */
 }
 
 .buttonsWrapper p {
@@ -29,5 +27,4 @@
     display: flex;
     gap: 8px;
     flex-direction: row;
-    /* border: 1px solid red; */
 }

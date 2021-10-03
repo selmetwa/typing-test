@@ -51,7 +51,6 @@ h1 {
     margin-top: 16px;
     flex-direction: row;
     flex-wrap: wrap;
-    /* gap: 2px 10px; */
     line-height: .5em;
     column-gap: 10px;
 }
@@ -59,7 +58,6 @@ h1 {
 .word {
     width: min-content;
     white-space: nowrap;
-    /* margin: 5px; */
     font-size: 18px;
     font-weight: 500;
 }

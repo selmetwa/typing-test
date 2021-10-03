@@ -8,8 +8,8 @@ import './TypingTest.css';
  * [x] move buttons to separate component
  * [x] rename variables and files, remove unused things
  * [x] calculate accuracy
- * [] calculate WPM
- * [] make it look better
+ * [x] calculate WPM
+ * [x] make it look better
  */
 
 const Test = () => {
