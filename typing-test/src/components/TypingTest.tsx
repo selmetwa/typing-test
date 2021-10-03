@@ -63,7 +63,7 @@ const Test = () => {
     console.log('wpm: ', wpm)
   }
 
-  const stylePreviousWord = (previousWord: HTMLElement | null, color: string) => {
+  const stylePreviousWord = (previousWord: Element | null, color: string) => {
     if (previousWord instanceof HTMLElement) {
       previousWord.style.color = color;
     } else {
@@ -71,14 +71,14 @@ const Test = () => {
     }
   }
 
-  const addToRightWords = (word: string, previousWord: HTMLElement | null) => {
+  const addToRightWords = (word: string, previousWord: Element | null) => {
     let newRightWords = [...rightWords];
     newRightWords.push(word)
     setRightWords(newRightWords);
     stylePreviousWord(previousWord, '#6FC37D');
   }
 
-  const addToWrongWords = (word: string, previousWord: HTMLElement | null) => {
+  const addToWrongWords = (word: string, previousWord: Element | null) => {
     let newWrongWords = [...wrongWords];
     newWrongWords.push(word)
     setWrongWords(newWrongWords);
