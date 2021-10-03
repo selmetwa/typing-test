@@ -48,7 +48,7 @@ const Test = () => {
       calculate(startTime, endTime);
       resetInputField()
       setTestIsDone(true);
-      Array.from(document.querySelectorAll('.word')).forEach((word) => {
+      Array.from(document.querySelectorAll<HTMLElement>('.word')).forEach((word) => {
         word.style.color = 'black';
       })
     }
@@ -111,8 +111,8 @@ const Test = () => {
       inputMatchesWord ? addToRightWords(activeWord, previousWord) : addToWrongWords(activeWord, previousWord);
 
       const currentIndex = activeWordIndex;
-      let test = document.querySelector(`.word-${currentIndex + 1}`)
-      test && test.style ? test.style.color = '#258EA6' : null;
+      let nextWord = document.querySelector<HTMLElement>(`.word-${currentIndex + 1}`);
+      nextWord && nextWord.style ? nextWord.style.color = '#258EA6' : null;
       setActiveWordIndex(currentIndex + 1);
     }
   }
