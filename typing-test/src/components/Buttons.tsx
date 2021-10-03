@@ -2,7 +2,7 @@ import './Buttons.css';
 import { useState } from 'react';
 
 interface Props  {
-  handleGenerateWords: (count:number) => []
+  handleGenerateWords: (count:number) => void
 }
 
 const Buttons = ({ handleGenerateWords }: Props) => {

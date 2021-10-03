@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { generateWords, currentTime } from "../util.js";
-import Buttons from "./Buttons.tsx";
+import Buttons from "./Buttons";
+import Input from "./Input";
 import './TypingTest.css';
 
 const Test = () => {
@@ -14,8 +15,7 @@ const Test = () => {
   const [startTime, setStartTime] = useState<number | null>(null);
   const [wpm, setWpm] = useState<string | null>(null);
 
-  const inputEl = useRef<HTMLInputElement>(null);
-
+  const inputEl = document.querySelector<HTMLInputElement>('input');
   useEffect(() => {
     const initialWords = generateWords(wordCount);
     setWords(initialWords);
@@ -86,8 +86,8 @@ const Test = () => {
   }
 
   const resetInputField = () => {
-    inputEl.current!.value = '';
-    inputEl.current!.style.backgroundColor = '#FAFAFA';
+    inputEl!.value = '';
+    inputEl!.style.backgroundColor = '#FAFAFA';
   }
 
   const handleKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -99,9 +99,9 @@ const Test = () => {
     const previousWord = document.querySelector(`.word-${activeWordIndex}`);
     const currentInputIsCorrect = activeWord.indexOf(input.replace(/ /g, '')) > -1;
     if (currentInputIsCorrect) {
-      inputEl.current!.style.backgroundColor = '#FAFAFA';
+      inputEl!.style.backgroundColor = '#FAFAFA';
     } else {
-      inputEl.current!.style.backgroundColor = '#DC9596';
+      inputEl!.style.backgroundColor = '#DC9596';
     }
     if (input.replace(/ /g, '').length > 0 && input.charAt(input.length - 1) === ' ') {
       resetInputField();
@@ -138,12 +138,7 @@ const Test = () => {
               )
             })}
           </div>
-          <div className="inputWrapper">
-          <input onChange={e => handleKeyChange(e)} ref={inputEl} disabled={testIsDone} />
-            {testIsDone && (
-              <button onClick={() => resetTest()}>redo</button>
-            )}
-          </div>
+          <Input {...{testIsDone, handleKeyChange, resetTest}} />
         </section>
       </div>
     </section>
