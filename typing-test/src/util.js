@@ -1,4 +1,3 @@
-import faker from 'faker';
 import randomWords from 'random-words';
 
 export const generateWords = (count) => {

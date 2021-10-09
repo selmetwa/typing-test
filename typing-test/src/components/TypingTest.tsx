@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
-import { generateWords, currentTime } from "../util.js";
+import React, { useState, useEffect, useLayoutEffect } from "react";
+import randomWords from 'random-words';
+
 import Header from "./Header";
 import Buttons from "./Buttons";
 import Input from "./Input";
+
 import './TypingTest.css';
 
-const Test = () => {
+const TypingTest = () => {
   const [words, setWords] = useState<string[]>([])
   const [wrongWords, setWrongWords] = useState<string[]>([]);
   const [rightWords, setRightWords] = useState<string[]>([])
@@ -17,10 +19,15 @@ const Test = () => {
   const [wpm, setWpm] = useState<number | null>(null);
 
   const inputEl = document.querySelector<HTMLInputElement>('input');
+
   useEffect(() => {
     const initialWords = generateWords(wordCount);
     setWords(initialWords);
   }, [wordCount])
+
+  const generateWords = (count: number) => {
+    return randomWords(count)
+  }
 
   const handleGenerateWords = (count: number) => {
     setActiveWordIndex(0);
@@ -49,7 +56,7 @@ const Test = () => {
 
   useEffect(() => {
     if (rightWords.length + wrongWords.length === words.length && words.length >= 10) {
-      const endTime = currentTime();
+      const endTime = new Date().getTime();
       calculate(startTime, endTime);
       resetInputField()
       setTestIsDone(true);
@@ -97,7 +104,7 @@ const Test = () => {
 
   const handleKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!startTime) {
-      setStartTime(currentTime())
+      setStartTime(new Date().getTime())
     }
     const input = e.target.value;
     const activeWord = words[activeWordIndex];
@@ -144,4 +151,4 @@ const Test = () => {
   )
 }
 
-export default Test;
+export default TypingTest;
