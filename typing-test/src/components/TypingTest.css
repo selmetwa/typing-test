@@ -47,6 +47,15 @@
     border: 3px solid #e8e8e8;
 }
 
+@media only screen and (max-width: 600px) {
+    .test-wrapper {
+        width: 95%;
+    }
+    .wrapper {
+        width: 80%;
+    }
+}
+
 .wordsWrapper {
     display: flex;
     margin-top: 16px;
